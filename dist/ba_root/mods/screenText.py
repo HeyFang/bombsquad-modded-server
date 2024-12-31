@@ -233,18 +233,59 @@ def on_game_begin(self):
                 "text": ""
             }
         )
-        assert self.loop_text
-        animate(
-            self.loop_text,
-            'opacity',
-            {
-                0: 0.0,    # Start fully transparent
-                1.0: 1.0,  # Fade in to fully opaque at 1 second
-                4.0: 1.0,  # Stay fully opaque until 4 seconds
-                5.0: 0.0   # Fade out to fully transparent at 5 seconds
-            },
-            loop=True
+        self.discord_text = bs.newnode(
+            "text",
+            attrs = {
+                "position": (60, 0),
+                "h_attach": "left",
+                "h_align": "left",
+                "v_attach": "bottom",
+                "v_align": "bottom",
+                # "maxwidth": 300,
+                "shadow": 0.5,
+                "scale": 0.7,
+                "color": (0.4, 1.0, 0.8, 1),
+                "text": "test"
+            }
         )
+        
+        assert self.loop_text
+        assert self.discord_text
+        # animate(
+        #     self.loop_text,
+        #     'opacity',
+        #     {
+        #         0: 0.0,    # Start fully transparent
+        #         1.0: 1.0,  # Fade in to fully opaque at 1 second
+        #         4.0: 1.0,  # Stay fully opaque until 4 seconds
+        #         5.0: 0.0   # Fade out to fully transparent at 5 seconds
+        #     },
+        #     loop=True
+        # )
+        
+        def switch_discord():
+            arr = [
+                "eoni - discord.gg/zcT3UnA",
+                "cyklon - discord.gg/vexVABAwXe"
+            ]
+            key = round(random.random() * (len(arr) - 1))
+            
+            self.discord_text.text = arr[key]
+            
+            animate(
+                self.discord_text,
+                'opacity',
+                {
+                    0: 0.0, 
+                    1.0: 1.0,
+                    10.0: 1.0,  
+                    13.0: 0.0   
+                },
+                loop=False
+            )
+            
+            bs.timer(13, ba.Call( (lambda: self.discord_text.__setattr__("text", "")) ))
+            
 
         def change_text():
             arr = [
@@ -255,9 +296,23 @@ def on_game_begin(self):
             key = round(random.random() * (len(arr) - 1))
             
             self.loop_text.text = arr[key]
-            bs.timer(4, ba.Call( (lambda: self.loop_text.__setattr__("text", "")) ))
+            
+            animate(
+                self.loop_text,
+                'opacity',
+                {
+                    0: 0.0,    # Start fully transparent
+                    1.0: 1.0,  # Fade in to fully opaque at 1 second
+                    4.0: 1.0,  # Stay fully opaque until 4 seconds
+                    5.0: 0.0   # Fade out to fully transparent at 5 seconds
+                },
+                loop=False
+            )
+            
+            bs.timer(5, ba.Call( (lambda: self.loop_text.__setattr__("text", "")) ))
         
         bs.timer(6, ba.Call(change_text), repeat=True)
+        bs.timer(15, ba.Call(switch_discord), repeat=True)
         
         
         
