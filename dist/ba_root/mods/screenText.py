@@ -76,7 +76,7 @@ def ranks(self):
                         player_rank_texts[player] = PlayerTag(player, f'#{rank}')
     except Exception as e:
         print(f"Error updating ranks: {e}")
-
+current_message_index = 0
 
 def on_game_begin(self):
     # chars = ba.SpecialChar(64)
@@ -220,83 +220,38 @@ def on_game_begin(self):
         )
         self.loop_text = bs.newnode(
             "text",
-            attrs = {
-                "position": (0, -200),
+            attrs={
+                "position": (0, -250),
                 "h_attach": "center",
                 "h_align": "center",
                 "v_attach": "center",
                 "v_align": "center",
-                # "maxwidth": 300,
                 "shadow": 0.5,
                 "scale": 1.0,
                 "color": (0.4, 1.0, 0.8, 1),
                 "text": ""
             }
         )
-        self.discord_text = bs.newnode(
-            "text",
-            attrs = {
-                "position": (60, 0),
-                "h_attach": "left",
-                "h_align": "left",
-                "v_attach": "bottom",
-                "v_align": "bottom",
-                # "maxwidth": 300,
-                "shadow": 0.5,
-                "scale": 0.7,
-                "color": (0.4, 1.0, 0.8, 1),
-                "text": "test"
-            }
-        )
+
+        # List of messages to display
+        messages = [
+            "Join our Discord by clicking on stats button",
+            "For ban related appeals contact the admins in Discord",
+            "For complaints be sure to get screenshots and v2/pb id of player",
+            "Eoni Discord Server: discord.gg/zcT3UnA",
+            "Cyclones Discord Server: discord.gg/cv9r8Nq8fj"
+        ]
+
+        # Index to keep track of the current message
         
-        assert self.loop_text
-        assert self.discord_text
-        # animate(
-        #     self.loop_text,
-        #     'opacity',
-        #     {
-        #         0: 0.0,    # Start fully transparent
-        #         1.0: 1.0,  # Fade in to fully opaque at 1 second
-        #         4.0: 1.0,  # Stay fully opaque until 4 seconds
-        #         5.0: 0.0   # Fade out to fully transparent at 5 seconds
-        #     },
-        #     loop=True
-        # )
-        
-        def switch_discord():
-            arr = [
-                "eoni - discord.gg/zcT3UnA",
-                "cyklon - discord.gg/vexVABAwXe"
-            ]
-            key = round(random.random() * (len(arr) - 1))
-            
-            self.discord_text.text = arr[key]
-            
-            animate(
-                self.discord_text,
-                'opacity',
-                {
-                    0: 0.0, 
-                    1.0: 1.0,
-                    10.0: 1.0,  
-                    13.0: 0.0   
-                },
-                loop=False
-            )
-            
-            bs.timer(13, ba.Call( (lambda: self.discord_text.__setattr__("text", "")) ))
-            
 
         def change_text():
-            arr = [
-                "Join the official discord community by clicking on stats button",
-                "For ban related appeals contact the admins in discord server",
-                "Come play minecraft with us in the cyclones discord community"
-            ]
-            key = round(random.random() * (len(arr) - 1))
+            global current_message_index
             
-            self.loop_text.text = arr[key]
+            # Set the text to the current message
+            self.loop_text.text = messages[current_message_index]
             
+            # Animate the text to fade in and fade out
             animate(
                 self.loop_text,
                 'opacity',
@@ -309,10 +264,14 @@ def on_game_begin(self):
                 loop=False
             )
             
-            bs.timer(5, ba.Call( (lambda: self.loop_text.__setattr__("text", "")) ))
-        
+            # Increment the message index and wrap around if necessary
+            current_message_index = (current_message_index + 1) % len(messages)
+            
+            # Clear the text after it fades out
+            bs.timer(5, ba.Call(lambda: self.loop_text.__setattr__("text", "")))
+
+        # Set up a timer to change the text every 6 seconds
         bs.timer(6, ba.Call(change_text), repeat=True)
-        bs.timer(15, ba.Call(switch_discord), repeat=True)
         
         
         
