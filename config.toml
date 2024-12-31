@@ -146,10 +146,10 @@ stats_url = "https://discord.gg/cv9r8Nq8fj"
 #show_tutorial = false
 
 # Team names (teams mode only).
-team_names = ["Red", "Blue"]
+team_names = ["Cyclones", "Eoni"]
 
 # Team colors (teams mode only).
-team_colors = [[0.1, 0.25, 1.0], [1.0, 0.25, 0.2]]
+team_colors = [[0.0, 0.5, 1.0], [0.5, 1.0, 0.0]]
 
 # Whether to enable the queue where players can line up before
 # entering your server. Disabling this can be used as a workaround
