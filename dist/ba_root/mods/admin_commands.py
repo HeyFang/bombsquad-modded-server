@@ -74,7 +74,7 @@ def nv(msg, client_id):
 
     try:
         activity = bs.get_foreground_host_activity()
-        nv_tint = (0.4, 0.4, 1.0)
+        nv_tint = (0.5, 0.5, 1.0)
         nv_ambient = (1.5, 1.5, 1.5)
         
         if is_close(activity.globalsnode.tint, nv_tint):

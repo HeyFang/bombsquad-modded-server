@@ -129,19 +129,19 @@
  "Campaigns": {},
  "Custom Team Colors": [
   [
-   0.1,
-   0.25,
+   0.0,
+   0.5,
    1.0
   ],
   [
+   0.5,
    1.0,
-   0.25,
-   0.2
+   0.0
   ]
  ],
  "Custom Team Names": [
-  "Red",
-  "Blue"
+  "Cyclones",
+  "Eoni"
  ],
  "Default Player Profiles": {
   "Client Input Device #1": "\ud83c\udf00Fang"
@@ -150,9 +150,10 @@
  "Fleet Zone Ping Last Flush Time": 1735577397,
  "Fleet Zone Pings": {
   "prod": {
-   "delhi.v4": 40.62903045368611,
-   "hyderabad.v4": 43.798590310404194,
-   "mumbai.v4": 17.05253614026021
+   "delhi.v4": 87.81043710381138,
+   "hyderabad.v4": 60.50003562972368,
+   "kolkata.v4": 73.15004569194639,
+   "mumbai.v4": 74.18877770917526
   }
  },
  "Free-for-All Playlist Randomize": false,
@@ -601,7 +602,7 @@
   ]
  },
  "Teams Series Length": 7,
- "launchCount": 879,
+ "launchCount": 908,
  "lc14173": 1,
  "lc14292": 1
 }

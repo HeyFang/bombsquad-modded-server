@@ -40,7 +40,7 @@ class PlayerTag:
                     attrs={
                         'text': letter,
                         'in_world': True,
-                        'shadow': 1.0,
+                        'shadow': 0.5,
                         'flatness': 1.0,
                         'color': color,
                         'scale': 0.01,
@@ -68,12 +68,25 @@ def ranks(self):
                             break
                     
                     if pb_id:
-                        rank = st.get_rank(pb_id)
-                        if rank is None:
-                            rank = " "
+                        rank =  st.get_rank(pb_id)
                         
-                        # Create a new PlayerTag above the player's head displaying their rank
-                        player_rank_texts[player] = PlayerTag(player, f'#{rank}')
+                        match rank:
+                            case 1:
+                                player_rank_texts[player] = PlayerTag(player, f'{ba.charstr(ba.SpecialChar.CROWN)} {rank}', (1, 1, 0.0))
+                            case 2:
+                                player_rank_texts[player] = PlayerTag(player, f'{ba.charstr(ba.SpecialChar.DRAGON)} {rank}', (0.75, 0.75, 0.75))
+                            case 3:
+                                player_rank_texts[player] = PlayerTag(player, f'{ba.charstr(ba.SpecialChar.HELMET)} {rank}', (0.9, 0.4, 0.2))
+                            case 4:
+                                player_rank_texts[player] = PlayerTag(player, f'{ba.charstr(ba.SpecialChar.FIREBALL)} {rank}', (0.8, 0.8, 0.8))
+                            case 5:
+                                player_rank_texts[player] = PlayerTag(player, f'{ba.charstr(ba.SpecialChar.VIKING_HELMET)} {rank}', (0.8, 0.8, 0.8))
+                            case None:
+                                rank = " "
+                                player_rank_texts[player] = PlayerTag(player, f'{rank}')
+                            case _:
+                                player_rank_texts[player] = PlayerTag(player, f'#{rank}')
+    
     except Exception as e:
         print(f"Error updating ranks: {e}")
 current_message_index = 0
@@ -92,7 +105,7 @@ def on_game_begin(self):
                 'maxwidth': 200,
                 'shadow': 0.5,
                 # 'vr_depth': 390,
-                'scale': 1.4,
+                'scale': 1.6,
                 'color': (0.0, 1.0, 1.0),
                 'text': f"{ba.charstr(ba.SpecialChar.CROWN)} || EONI vs CYCLONES || {ba.charstr(ba.SpecialChar.CROWN)}",
                 # 'transition': 'fade_in'
@@ -110,7 +123,7 @@ def on_game_begin(self):
                 'maxwidth': 300,
                 'shadow': 0.5,
                 # 'vr_depth': 390,
-                'scale': 1.2,
+                'scale': 1.4,
                 'color': (0.0, 0.9, 0.9, 0.9),
                 'text': "Still remember us? We're back after 4 years :D"
             },
@@ -120,7 +133,7 @@ def on_game_begin(self):
         self.script2 = bs.newnode(
             'text',
             attrs={
-                'position': (0, 30),
+                'position': (0, 40),
                 'h_attach': 'right',
                 'h_align': 'right',
                 'v_attach': 'bottom',
@@ -128,7 +141,7 @@ def on_game_begin(self):
                 'maxwidth': 300,
                 'shadow': 0.5,
                 # 'vr_depth': 390,
-                'scale': 0.7,
+                'scale': 0.8,
                 'color': (1, 1, 1, 1),
                 'text': f"Scripts developed by "
             },
@@ -137,7 +150,7 @@ def on_game_begin(self):
         self.script2 = bs.newnode(
             'text',
             attrs={
-                'position': (-15, 5),
+                'position': (-15, 10),
                 'h_attach': 'right',
                 'h_align': 'right',
                 'v_attach': 'bottom',
@@ -145,7 +158,7 @@ def on_game_begin(self):
                 'maxwidth': 300,
                 'shadow': 0.5,
                 # 'vr_depth': 390,
-                'scale': 0.7,
+                'scale': 0.8,
                 'color': (1, 1, 1, 1),
                 'text': f"{ba.charstr(ba.SpecialChar.CROWN)}Fang & Yuzuru{ba.charstr(ba.SpecialChar.MOON)}"
             },
@@ -173,7 +186,7 @@ def on_game_begin(self):
         self.t3 = bs.newnode(
             'text',
             attrs={
-                'position': (-130,-120),
+                'position': (-150,-120),
                 'h_attach': 'right',
                 'h_align': 'left',
                 'v_attach': 'top',
@@ -189,7 +202,7 @@ def on_game_begin(self):
         self.t2 = bs.newnode(
             'text',
             attrs={
-                'position': (-130,-150),
+                'position': (-150,-150),
                 'h_attach': 'right',
                 'h_align': 'left',
                 'v_attach': 'top',
@@ -205,7 +218,7 @@ def on_game_begin(self):
         self.t1 = bs.newnode(
             'text',
             attrs={
-                'position': (-130,-180),
+                'position': (-150,-180),
                 'h_attach': 'right',
                 'h_align': 'left',
                 'v_attach': 'top',
@@ -221,7 +234,7 @@ def on_game_begin(self):
         self.loop_text = bs.newnode(
             "text",
             attrs={
-                "position": (0, -250),
+                "position": (0, -220),
                 "h_attach": "center",
                 "h_align": "center",
                 "v_attach": "center",
@@ -277,6 +290,5 @@ def on_game_begin(self):
         
 
         
-        ranks(self)
         
 
